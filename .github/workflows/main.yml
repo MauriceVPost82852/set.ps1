@@ -1,0 +1,22 @@
+name: Winqo
+
+on: 
+  workflow_dispatch:
+    inputs:
+      authcode:
+        description: 'Enter CRD code'
+        required: true
+      
+  
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Initializing Setup
+      run: ./set.ps1
+    - name: Starting CRD 
+      run: ${{ github.event.inputs.authcode }} -pin=123456
+    - name: Testing Website Ui
+      run: ./time.ps1
